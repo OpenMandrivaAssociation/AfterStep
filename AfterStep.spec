@@ -24,7 +24,7 @@ Patch2:		%{name}-1.8.9-menuname.patch
 Patch3:         %{name}.MenuKey.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Requires:	mandrake_desk >= 7.2-1mdk xli 
+Requires:	Mandriva_desk >= 7.2-1mdk xli 
 # Requires: 	%libname = %{epoch}:%{version}-%{release}
 BuildRequires:	XFree86-devel
 BuildRequires:  libpng-devel
@@ -145,7 +145,7 @@ install -m644 %SOURCE4 -D $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
 install -m644 %SOURCE3 -D $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 install -m644 %SOURCE5 -D $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
-# Not needed with Linux-Mandrake menu
+# Not needed with Linux-Mandriva menu
 rm -fr $RPM_BUILD_ROOT/%{__datadir}/afterstep/start/Applications/
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/X11/wmsession.d
