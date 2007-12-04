@@ -26,7 +26,7 @@ Patch3:         %{name}.MenuKey.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires:	Mandriva_desk >= 7.2-1mdk xli 
 # Requires: 	%libname = %{epoch}:%{version}-%{release}
-BuildRequires:	XFree86-devel
+BuildRequires:	X11-devel
 BuildRequires:  libpng-devel
 BuildRequires:	libtiff-devel
 BuildRequires:   gtk2-devel
