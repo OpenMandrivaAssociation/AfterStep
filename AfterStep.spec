@@ -23,7 +23,6 @@ Source5:	%{name}48.png.bz2
 Patch2:		%{name}-1.8.9-menuname.patch
 Patch3:         %{name}.MenuKey.patch
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires:	Mandriva_desk >= 7.2-1mdk xli 
 # Requires: 	%libname = %{epoch}:%{version}-%{release}
 BuildRequires:	X11-devel
