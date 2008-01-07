@@ -1,9 +1,9 @@
 %define	name	AfterStep
 %define	version	2.2.4
-%define	release	%mkrel 1
+%define	release	%mkrel 2
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
-%define	libname_devel	%mklibname %{name} %{major} -d
+%define	libname_devel	%mklibname %{name} -d
 %define	ltitle	AfterStep Window Manager
 
 Summary:	%{ltitle}
@@ -11,7 +11,7 @@ Name:		%{name}
 Version:	%{version}
 Release:	%{release}
 Epoch:          4
-License:	GPL
+License:	GPLv2+
 Group:		Graphical desktop/Other
 URL:		http://www.afterstep.org/
 
@@ -24,7 +24,7 @@ Patch2:		%{name}-1.8.9-menuname.patch
 Patch3:         %{name}.MenuKey.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-Requires:	Mandriva_desk >= 7.2-1mdk xli 
+Requires:	desktop-common-data xli 
 # Requires: 	%libname = %{epoch}:%{version}-%{release}
 BuildRequires:	X11-devel
 BuildRequires:  libpng-devel
@@ -67,6 +67,7 @@ Summary:	Devel files needed to build applications based on AfterStep
 Group:		Development/C
 Provides:	%name-devel lib%name-devel
 Requires:	%libname = %{epoch}:%version-%release
+Obsoletes:	%mklibname -d %name 0
 
 %description -n %libname_devel
 AfterStep is a Window Manager for X which started by emulating the NEXTSTEP
@@ -145,7 +146,7 @@ install -m644 %SOURCE4 -D $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
 install -m644 %SOURCE3 -D $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 install -m644 %SOURCE5 -D $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
 
-# Not needed with Linux-Mandriva menu
+# Not needed with Mandriva menu
 rm -fr $RPM_BUILD_ROOT/%{__datadir}/afterstep/start/Applications/
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/X11/wmsession.d
@@ -207,6 +208,3 @@ rm -rf $RPM_BUILD_ROOT
 %dir %_includedir/libAfterStep
 %_includedir/libAfterStep/*.h
 %_includedir/libASGTK
-
-
-
