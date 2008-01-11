@@ -130,16 +130,6 @@ if [ -x /usr/bin/sgml2html ]; then sgml2html doc/afterstep.sgml; fi
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
-install -d $RPM_BUILD_ROOT%{_menudir}
-cat << EOF >$RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}):needs=wm \
-	section="Session/Windowmanagers" \
-	icon="%{name}.png" \
-	title="%{name}" \
-	longtitle="%{ltitle}" \
-	command="afterstep" \
-        xdg="true"
-EOF
 
 # LMDK icons
 install -m644 %SOURCE4 -D $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
@@ -183,7 +173,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/X11/wmsession.d/15%{name}
 %doc COPYRIGHT ChangeLog NEW README TEAM UPGRADE doc/languages doc/licences
-%{_menudir}/*
 %{_iconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
