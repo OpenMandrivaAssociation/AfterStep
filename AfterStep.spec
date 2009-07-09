@@ -1,6 +1,6 @@
 %define	name	AfterStep
-%define	version	2.2.4
-%define	release	%mkrel 2
+%define	version	2.2.9
+%define	release	%mkrel 1
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	libname_devel	%mklibname %{name} -d
@@ -97,7 +97,7 @@ rm -f config.status
 export CFLAGS="%optflags"
 export CCFLAGS="%optflags"
 
-%configure	\
+%configure2_5x	\
                 --enable-sharedlibs \
 		--with-imageloader="xsetbg" \
 		--with-helpcommand="xterm -fn 9x15 -e man" \
