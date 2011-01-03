@@ -1,6 +1,6 @@
 %define	name	AfterStep
 %define	version	2.2.9
-%define	release	%mkrel 3
+%define	release	%mkrel 4
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	libname_devel	%mklibname %{name} -d
@@ -17,19 +17,26 @@ URL:		http://www.afterstep.org/
 
 Source:		ftp://ftp.afterstep.org/stable/AfterStep-%version.tar.bz2
 Source1:	%{name}-mdkconf.tar.bz2
-Source3:	%{name}.png.bz2
-Source4:	%{name}32.png.bz2
-Source5:	%{name}48.png.bz2
+Source3:	%{name}.png
+Source4:	%{name}32.png
+Source5:	%{name}48.png
 Patch2:		%{name}-1.8.9-menuname.patch
 Patch3:         %{name}.MenuKey.patch
+Patch4:		afterstep-2.2.9-ldflags.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires:	desktop-common-data xli 
 # Requires: 	%libname = %{epoch}:%{version}-%{release}
-BuildRequires:	X11-devel
-BuildRequires:  libpng-devel
-BuildRequires:	libtiff-devel
-BuildRequires:   gtk2-devel
+BuildRequires:	libx11-devel
+BuildRequires:	libxext-devel
+BuildRequires:	libxinerama-devel
+BuildRequires:	dbus-devel
+BuildRequires:	freetype2-devel
+BuildRequires:	jpeg-devel
+BuildRequires:	librsvg-devel
+BuildRequires:	png-devel
+BuildRequires:	tiff-devel
+BuildRequires:  gtk2-devel
 
 %description
 AfterStep is a Window Manager for X which started by emulating the NEXTSTEP
@@ -90,7 +97,7 @@ AfterStep.
 # LMDK patches
 %patch2 -p1
 %patch3 -p1
-#%patch4 -p0 -b .configshared
+%patch4 -p0 -b .link
 
 %build
 rm -f config.status
@@ -148,11 +155,6 @@ DESC=A NeXt like Window-Manager
 SCRIPT:
 exec %{_bindir}/afterstep
 EOF
-
-%if 0
-%multiarch_binaries %buildroot%_bindir/afterimage-config
-%multiarch_binaries %buildroot%_bindir/afterstep-config
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
