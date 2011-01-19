@@ -1,6 +1,6 @@
 %define	name	AfterStep
-%define	version	2.2.9
-%define	release	%mkrel 4
+%define	version	2.2.11
+%define	release	%mkrel 1
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	libname_devel	%mklibname %{name} -d
@@ -135,8 +135,7 @@ if [ -x /usr/bin/sgml2html ]; then sgml2html doc/afterstep.sgml; fi
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall_std
-
+%makeinstall_std LDCONFIG=/bin/true
 
 # LMDK icons
 install -m644 %SOURCE4 -D $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
@@ -202,8 +201,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_libdir}/*.so
 %{_libdir}/*.a
-%dir %_includedir/libAfterConf
-%_includedir/libAfterConf/*.h
-%dir %_includedir/libAfterStep
-%_includedir/libAfterStep/*.h
-%_includedir/libASGTK
+%_includedir/*
