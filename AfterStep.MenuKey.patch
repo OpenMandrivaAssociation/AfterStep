@@ -1,0 +1,10 @@
+--- AfterStep-2.00.01/afterstep/feels/feel.DEFAULT.mdk	2005-01-12 17:59:18.831731139 +0100
++++ AfterStep-2.00.01/afterstep/feels/feel.DEFAULT	2005-01-12 17:59:42.533483416 +0100
+@@ -388,6 +388,7 @@
+ Key Menu        A       C       WindowList 2
+ # Lists all the applications on all the desks
+ Key Menu        A       S       WindowList
++Key Menu        A       N       PopUp "0"
+ 
+ ################################################################################
+ # Window wrapping

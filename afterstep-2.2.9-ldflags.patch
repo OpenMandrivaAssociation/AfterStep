@@ -1,0 +1,59 @@
+Respect LDFLAGS
+
+http://bugs.gentoo.org/show_bug.cgi?id=325309
+
+--- autoconf/Makefile.common.lib.in
++++ autoconf/Makefile.common.lib.in
+@@ -245,7 +245,7 @@
+ 	$(LN_S) -f $(LIB_SHARED).$(LIBVER) $(LIB_SHARED).$(LIBVERMAJOR)
+ 
+ $(LIB_SHARED).$(LIBVER): $(LIB_OBJS) $(LIB_INCS)
+-	$(CC) -shared -Wl,-soname,$(LIB_SHARED).$(LIBVERMAJOR) -o $(LIB_SHARED).$(LIBVER) \
++	$(CC) -shared $(LDFLAGS) -Wl,-soname,$(LIB_SHARED).$(LIBVERMAJOR) -o $(LIB_SHARED).$(LIBVER) \
+ 	 $(LIB_OBJS)
+ 
+ install:	install.lib install.bin
+--- libAfterImage/Makefile.in.link	2008-12-17 17:29:14.000000000 +0000
++++ libAfterImage/Makefile.in	2011-01-03 05:37:39.000000000 +0000
+@@ -395,8 +395,8 @@
+ 	$(LN_S) -f $(LIB_SHARED).$(LIBVER) $(LIB_SHARED).$(LIBVERMAJOR)
+ 
+ $(LIB_SHARED).$(LIBVER): $(LIB_OBJS) $(LIB_INCS) config.h
+-	$(CC) -shared -Wl,-soname,$(LIB_SHARED).$(LIBVERMAJOR) -o $(LIB_SHARED).$(LIBVER) \
+-	 $(LIB_OBJS)
++	$(CC) -shared $(LDFLAGS) -Wl,-soname,$(LIB_SHARED).$(LIBVERMAJOR) -o $(LIB_SHARED).$(LIBVER) \
++	 $(LIB_OBJS) $(LIBRARIES)
+ 
+ install.man:
+ 		@if [ -d doc/man ] ; then \
+--- libAfterBase/Makefile.in.link	2007-04-20 22:10:45.000000000 +0000
++++ libAfterBase/Makefile.in	2011-01-03 05:40:30.000000000 +0000
+@@ -325,8 +325,8 @@
+ 	$(LN_S) -f $(LIB_SHARED).$(LIBVER) $(LIB_SHARED).$(LIBVERMAJOR)
+ 
+ $(LIB_SHARED).$(LIBVER): $(LIB_OBJS) $(LIB_INCS)
+-	$(CC) -shared -Wl,-soname,$(LIB_SHARED).$(LIBVERMAJOR) -o $(LIB_SHARED).$(LIBVER) \
+-	 $(USER_LD_FLAGS) $(LIBS_X) $(LIB_OBJS)
++	$(CC) -shared $(LDFLAGS) -Wl,-soname,$(LIB_SHARED).$(LIBVERMAJOR) -o $(LIB_SHARED).$(LIBVER) \
++	 $(USER_LD_FLAGS) $(LIB_OBJS) $(LIBS_X)
+ 
+ install:	install.lib
+ 
+--- src/WinCommand/Makefile.in.link	2011-01-03 05:45:04.000000000 +0000
++++ src/WinCommand/Makefile.in	2011-01-03 05:45:39.000000000 +0000
+@@ -15,13 +15,13 @@
+ @MAKEFILECOMMON@
+ 
+ WinCommand:	        $(OBJS_WINCOMMAND) $(LIBS_DEPEND)
+-		$(CC) $(OBJS_WINCOMMAND) $(LIBS_READLINE) $(LIBS_ALL) -o $(@)
++		$(CC) $(LDFLAGS) $(OBJS_WINCOMMAND) $(LIBS_READLINE) $(LIBS_ALL) -o $(@)
+ 
+ GWCommand.o:		GWCommand.c
+ 		$(CC) $(CCFLAGS) $(EXTRA_DEFINES) $(INCLUDES) $(EXTRA_INCLUDES) @GTK_INCLUDES@ -c $*.c
+ 
+ GWCommand:	        $(OBJS_GWCOMMAND) $(LIBS_DEPEND)
+-		$(CC) $(OBJS_GWCOMMAND) $(LIB_ASGTK) $(LIBS_ALL) @GTK_LIBS@ $(LIBS_AFTERIMAGE) -o $(@)
++		$(CC) $(LDFLAGS) $(OBJS_GWCOMMAND) $(LIB_ASGTK) $(LIBS_ALL) @GTK_LIBS@ $(LIBS_AFTERIMAGE) -o $(@)
+ 
+ module.clean:
+ 		

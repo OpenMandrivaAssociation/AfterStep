@@ -1,0 +1,11 @@
+--- AfterStep-1.8.0/afterstep/start/.include.in.chmou	Mon Jan 10 17:37:03 2000
++++ AfterStep-1.8.0/afterstep/start/.include.in	Thu Apr  6 17:10:03 2000
+@@ -17,7 +17,7 @@
+ #minipixmap start-menu.xpm
+ 
+ # change the name of the menu
+-name AfterStep @version@
++name MandrivaLinux
+ 
+ # change the order in which this menu will appear its parent menu
+ #order 0
