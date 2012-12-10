@@ -1,6 +1,7 @@
+#define debug_package %{nil}
 %define	name	AfterStep
 %define	version	2.2.11
-%define	release	%mkrel 2
+%define	release	1
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	libname_devel	%mklibname %{name} -d
@@ -23,20 +24,19 @@ Source5:	%{name}48.png
 Patch2:		%{name}-1.8.9-menuname.patch
 Patch3:         %{name}.MenuKey.patch
 Patch4:		afterstep-2.2.9-ldflags.patch
+Patch5:		afterstep-2.2.9-libpng15.patch
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Requires:	desktop-common-data xli 
-# Requires: 	%libname = %{epoch}:%{version}-%{release}
-BuildRequires:	libx11-devel
-BuildRequires:	libxext-devel
-BuildRequires:	libxinerama-devel
-BuildRequires:	dbus-devel
-BuildRequires:	freetype2-devel
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xext)
+BuildRequires:	pkgconfig(xinerama)
+BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	jpeg-devel
-BuildRequires:	librsvg-devel
-BuildRequires:	png-devel
-BuildRequires:	tiff-devel
-BuildRequires:  gtk2-devel
+BuildRequires:	pkgconfig(librsvg-2.0)
+BuildRequires:	pkgconfig(libpng15)
+BuildRequires:	pkgconfig(libtiff-4)
+BuildRequires:	pkgconfig(gdk-2.0)
 
 %description
 AfterStep is a Window Manager for X which started by emulating the NEXTSTEP
@@ -98,6 +98,7 @@ AfterStep.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p0 -b .link
+%patch5 -p1 
 
 %build
 rm -f config.status
@@ -134,7 +135,6 @@ if [ -x /usr/bin/sgml2html ]; then sgml2html doc/afterstep.sgml; fi
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall_std LDCONFIG=/bin/true
 
 # LMDK icons
@@ -155,8 +155,7 @@ SCRIPT:
 exec %{_bindir}/afterstep
 EOF
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+
 
 %post
 %if %mdkversion < 200900
@@ -179,7 +178,6 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %files
-%defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/X11/wmsession.d/15%{name}
 %doc COPYRIGHT ChangeLog NEW README TEAM UPGRADE doc/languages doc/licences
 %{_iconsdir}/%{name}.png
@@ -193,12 +191,93 @@ rm -rf $RPM_BUILD_ROOT
 %_datadir/xsessions/AfterStep.desktop
 
 %files -n %libname
-%defattr(-,root,root,-)
 %{_libdir}/*.so.%major
 %{_libdir}/*.so.%major.*
 
 %files -n %libname_devel
-%defattr(-,root,root,-)
 %{_libdir}/*.so
 %{_libdir}/*.a
 %_includedir/*
+
+
+%changelog
+* Wed Jan 19 2011 Funda Wang <fwang@mandriva.org> 4:2.2.11-1mdv2011.0
++ Revision: 631658
+- New version 2.2.11
+
+* Mon Jan 03 2011 Funda Wang <fwang@mandriva.org> 4:2.2.9-4mdv2011.0
++ Revision: 627679
+- fix linkage
+
+* Sun Dec 05 2010 Oden Eriksson <oeriksson@mandriva.com> 4:2.2.9-3mdv2011.0
++ Revision: 609926
+- rebuild
+
+* Sun Aug 23 2009 Funda Wang <fwang@mandriva.org> 4:2.2.9-2mdv2010.0
++ Revision: 419754
+- rebuild for new libjpeg v7
+
+  + Frederik Himpe <fhimpe@mandriva.org>
+    - Update to new version 2.2.9
+    - Use %%configure2_5x macro instead of %%configure to fix build
+
+* Thu Jun 12 2008 Pixel <pixel@mandriva.com> 4:2.2.4-2mdv2009.0
++ Revision: 218439
+- rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+- do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - drop old menu
+
+* Mon Jan 07 2008 Funda Wang <fwang@mandriva.org> 4:2.2.4-2mdv2008.1
++ Revision: 146266
+- New devel package policy
+- fix requires on Mandriva_desk
+
+* Thu Dec 20 2007 Olivier Blin <oblin@mandriva.com> 4:2.2.4-1mdv2008.1
++ Revision: 135819
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+    - buildrequires X11-devel instead of XFree86-devel
+    - s/Mandrake/Mandriva/
+
+
+* Fri Dec 01 2006 Nicolas LÃ©cureuil <neoclust@mandriva.org> 2.2.4-1mdv2007.0
++ Revision: 89500
+- New version 2.2.4
+
+* Thu Aug 03 2006 Olivier Thauvin <nanardon@mandriva.org> 4:2.2.2-1mdv2007.0
++ Revision: 43064
+- remove menu (no longer supported, just hopping xdg menu are supported, else no menu)
+- 2.2.2
+- Import AfterStep
+
+* Fri Jun 16 2006 Lenny Cartier <lenny@mandriva.com> 4:2.2.1-2mdv2007.0
+- rebuild
+
+* Tue Mar 07 2006 Olivier Thauvin <nanardon@mandriva.org> 2.2.1-1mdk
+- 2.2.1
+
+* Fri Oct 07 2005 Nicolas Lécureuil <neoclust@mandriva.org> 2.1.0-2mdk
+- Fix BuildRequires
+- Remove redundant buildrequire
+
+* Fri May 27 2005 Nicolas Lécureuil <neoclust@mandriva.org> 2.1.0-1mdk
+- 2.1.0
+
+* Mon May 09 2005 Olivier Thauvin <nanardon@mandriva.org> 2.00.05-1mdk
+- 2.00.05
+- remove patch4, merge upstream
+
+* Thu Jan 13 2005 Olivier Thauvin <thauvin@aerov.jussieu.fr> 2.00.01-2mdk
+- Fix lib installation
+
+* Wed Jan 12 2005 Olivier Thauvin <thauvin@aerov.jussieu.fr> 2.00.01-1mdk
+- 2.00.01
+- rediff patch3
+
+* Sat Feb 28 2004 Olivier Thauvin <thauvin@aerov.jussieu.fr> 1.8.11-5mdk
+- Fix Dep (epoch)
+
