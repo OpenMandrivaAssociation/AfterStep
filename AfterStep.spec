@@ -1,7 +1,7 @@
 #define debug_package %{nil}
 %define	name	AfterStep
 %define	version	2.2.11
-%define	release	1
+%define release:	2
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	libname_devel	%mklibname %{name} -d
@@ -158,9 +158,6 @@ EOF
 
 
 %post
-%if %mdkversion < 200900
-%update_menus
-%endif
 %make_session
 
 %if %mdkversion < 200900
@@ -168,9 +165,6 @@ EOF
 %endif
 
 %postun
-%if %mdkversion < 200900
-%clean_menus
-%endif
 %make_session
 
 %if %mdkversion < 200900
