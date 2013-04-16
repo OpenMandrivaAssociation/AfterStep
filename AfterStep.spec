@@ -7,7 +7,7 @@
 Summary:	%{ltitle}
 Name:		AfterStep
 Version:	2.2.11
-Release:	3
+Release:	4
 Epoch:          4
 License:	GPLv2+
 Group:		Graphical desktop/Other
@@ -152,22 +152,6 @@ SCRIPT:
 exec %{_bindir}/afterstep
 EOF
 
-
-
-%post
-%make_session
-
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-
-%postun
-%make_session
-
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
-
 %files
 %config(noreplace) %{_sysconfdir}/X11/wmsession.d/15%{name}
 %doc COPYRIGHT ChangeLog NEW README TEAM UPGRADE doc/languages doc/licences
@@ -235,7 +219,7 @@ EOF
     - s/Mandrake/Mandriva/
 
 
-* Fri Dec 01 2006 Nicolas Lécureuil <neoclust@mandriva.org> 2.2.4-1mdv2007.0
+* Fri Dec 01 2006 Nicolas LÃ©cureuil <neoclust@mandriva.org> 2.2.4-1mdv2007.0
 + Revision: 89500
 - New version 2.2.4
 
@@ -251,11 +235,11 @@ EOF
 * Tue Mar 07 2006 Olivier Thauvin <nanardon@mandriva.org> 2.2.1-1mdk
 - 2.2.1
 
-* Fri Oct 07 2005 Nicolas L�cureuil <neoclust@mandriva.org> 2.1.0-2mdk
+* Fri Oct 07 2005 Nicolas Lécureuil <neoclust@mandriva.org> 2.1.0-2mdk
 - Fix BuildRequires
 - Remove redundant buildrequire
 
-* Fri May 27 2005 Nicolas L�cureuil <neoclust@mandriva.org> 2.1.0-1mdk
+* Fri May 27 2005 Nicolas Lécureuil <neoclust@mandriva.org> 2.1.0-1mdk
 - 2.1.0
 
 * Mon May 09 2005 Olivier Thauvin <nanardon@mandriva.org> 2.00.05-1mdk
