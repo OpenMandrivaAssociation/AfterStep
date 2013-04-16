@@ -1,16 +1,13 @@
 #define debug_package %{nil}
-%define	name	AfterStep
-%define	version	2.2.11
-%define release:	3
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	libname_devel	%mklibname %{name} -d
 %define	ltitle	AfterStep Window Manager
 
 Summary:	%{ltitle}
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		AfterStep
+Version:	2.2.11
+Release:	3
 Epoch:          4
 License:	GPLv2+
 Group:		Graphical desktop/Other
