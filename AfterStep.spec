@@ -1,7 +1,7 @@
 #define debug_package %{nil}
 %define	name	AfterStep
 %define	version	2.2.11
-%define release:	2
+%define release:	3
 %define	major	0
 %define	libname	%mklibname %{name} %{major}
 %define	libname_devel	%mklibname %{name} -d
