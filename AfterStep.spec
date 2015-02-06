@@ -7,7 +7,7 @@
 Summary:	%{ltitle}
 Name:		AfterStep
 Version:	2.2.11
-Release:	4
+Release:	5
 Epoch:          4
 License:	GPLv2+
 Group:		Graphical desktop/Other
