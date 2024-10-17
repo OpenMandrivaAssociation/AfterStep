@@ -11,7 +11,7 @@ Release:	5
 Epoch:          4
 License:	GPLv2+
 Group:		Graphical desktop/Other
-URL:		http://www.afterstep.org/
+URL:		https://www.afterstep.org/
 
 Source:		ftp://ftp.afterstep.org/stable/AfterStep-%version.tar.bz2
 Source1:	%{name}-mdkconf.tar.bz2
