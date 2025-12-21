@@ -24,6 +24,11 @@ Patch4:		afterstep-2.2.9-ldflags.patch
 Patch5:		afterstep-2.2.9-libpng15.patch
 
 Requires:	desktop-common-data xli 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xinerama)
